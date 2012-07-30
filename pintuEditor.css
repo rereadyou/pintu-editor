@@ -1,0 +1,258 @@
+/**
+ * pintu editor css
+ *
+ */
+
+.pecontent {
+	margin:	3px; 
+	word-wrap:	break-word; 
+	word-break: break-all;
+}
+
+ .petoolbar{
+	background-image: url("html_editor.png");
+	height:		21px;
+	width:		21px;
+    margin:		2px 0px 2px 0px;
+	padding:	1px;
+    opacity:	0.667;
+	display:	inline-block;
+    vertical-align: middle;
+ }
+
+ .littleGrayDownArrow {
+	background: url("small-grey-disclosure-arrow-down.png")
+				no-repeat scroll center center transparent;
+    height:		7px;
+    margin:		1px 6px 0px 3px;
+    opacity:	0.8;
+    padding:	0;
+	width:		5px;
+	display:	inline-block;
+    vertical-align: middle;
+ }
+
+ .toolItem {
+ 	border: 1px solid #FFFFFF;
+	display: inline-block;
+ }
+
+ .toolItem:hover {
+ 	box-shadow:			0pt 1px 2px rgba(0, 0, 0, 0.1) inset;
+	padding:			0px;
+ 	border-radius:		2px 2px 2px 2px;
+ 	/* the selected item's border will actually have effect on the visual sight*/
+	border:				1px solid #BBBBBB;
+}
+
+
+.toolItemSelected {
+	box-shadow:			0pt 1px 2px rgba(0, 0, 0, 0.1) inset;
+	padding:			0px;
+ 	/* the selected item's border will actually have effect on the visual sight*/
+	border:				1px solid #BBBBBB;
+	background-color:	#EAEAEA;
+	/*background-image: -moz-linear-gradient(center top , rgb(238, 238, 238), rgb(224, 224, 224));
+*/
+}
+
+.popDiv {
+	border: 	1px solid #CCCCCC; 
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	background-color: #FFFFFF; 
+	z-index: 	10; 
+	position: 	absolute; 
+	display: 	none;
+}
+
+.colorPlate {
+	width: 	116px; 
+	padding: 0px 0px 2px;
+	background-color: #CCCCCC; 
+}
+
+.colorBrick {
+	width: 	14px; 
+	height: 12px; 
+	margin: 0px -2px -2px 0px;
+}
+
+blockquote pequote{
+	margin: 0px 0px 0px 0.8ex; 
+	border-left: 1px solid rgb(204, 204, 204); 
+	padding-left: 1ex;
+}
+
+.fontSize {
+	list-style:			none outside none;
+ 	-moz-user-select: 	none;
+}
+
+.checkmark {
+
+	width: 				30px; 
+	height: 			11px;
+	vertical-align: 	middle;
+
+ 	background-image: 	url("checkmark.png");
+  	background-position:left center;
+  	background-repeat: 	no-repeat;
+	display: 			none;
+}
+
+ .closeX:after {
+  content: 		"";
+  background: 	url("close-x.png") repeat scroll 0% 0% transparent;
+  position: 	absolute;
+  height: 		11px;
+  width: 		11px;
+  right: 		17px;
+}
+
+.closeX:hover {
+	opacity: 1;
+}
+
+ .closeX {
+  height: 11px;
+  opacity: 0.7;
+  padding: 17px;
+  position: absolute;
+  right: 0pt;
+  top: 0pt;
+  width: 11px;
+}
+
+.button {
+  border-radius: 2px 2px 2px 2px;
+  background-color: rgb(245, 245, 245);
+  background-image: -moz-linear-gradient(center top, rgb(245, 245, 245), rgb(241, 241, 241));
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: rgb(68, 68, 68);
+  cursor: default;
+  font-size: 11px;
+  font-weight: bold;
+  height: 29px;
+  line-height: 27px;
+  margin: 0pt 16px 0pt 0pt;
+  min-width: 72px;
+  outline: 0pt none;
+  padding: 0pt 8px;
+}
+
+.button:hover {
+    background-color: #F8F8F8;
+    background-image: -moz-linear-gradient(center top , #F8F8F8, #F1F1F1);
+    border: 1px solid #C6C6C6;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    color: #333333;
+}
+.button:active {
+    background-color: #F8F8F8;
+    background-image: -moz-linear-gradient(center top , #F8F8F8, #F1F1F1);
+    border: 1px solid #C6C6C6;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+    color: #333333;
+}
+.button:focus {
+    border: 1px solid #4D90FE;
+}
+.button[disabled] {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: none;
+    color: #B8B8B8;
+}
+
+
+.overFont{
+	background-color:	#EEEEEE;
+	border-color:		#EEEEEE;
+	cursor:				pointer;
+
+}
+
+.peTextArea {
+	border: 1px solid #4D90FE;
+}
+
+ .petbBOLD {
+	background-position: 0px;
+ }
+ 
+ .petbITALIC{
+	background-position: -21px;	
+ }
+
+.petbUNDERLINE{
+	background-position: -42px;
+ }
+ 
+.petbFONT{
+	background-position: -63px;
+ }
+ 
+.petbSIZE{
+	background-position: -84px;
+ }
+ 
+.petbTEXTCOLOR{
+	background-position: -105px;
+ }
+ 
+.petbHIGHLIGHT{
+	background-position: -126px;
+ }
+ 
+.petbLINK{
+	background-position: -147px;
+ }
+ 
+.petbNUMBEREDLIST{
+	background-position: -168px;
+ }
+ 
+.petbBULLETEDLIST{
+	background-position: -189px;
+ }
+ 
+.petbOUTDENT{
+	background-position: -210px;
+ }
+ 
+.petbINDENT{
+	background-position: -231px;
+ }
+ 
+.petbQUOTE{
+	background-position: -252px;
+ }
+ 
+.petbALIGNLEFT{
+	background-position: -273px;
+ }
+ 
+.petbALIGNCENTER{
+	background-position: -294px;
+ }
+ 
+.petbALIGNRIGHT{
+	background-position: -315px;
+ }
+ 
+.petbALIGNTX{
+	background-position: -336px;
+ }
+
+.petbEMOTION{
+	background-position: -357px;
+ }
+
+ .petbPICTURE{
+	background-position: -378px;
+ }
+
+ 
+ 
+ 
+ 

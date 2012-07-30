@@ -1,7 +1,7 @@
-pintu-editor
+#pintu-editor
 ============
 
-#Yet another WYSIWYG html editor
+##Yet another WYSIWYG html editor
 
 Have you ever used the gmail WYSIWYG html editor?
 Feel like it?

@@ -1,8 +1,10 @@
 pintu-editor
 ============
 
-Yet another WYSIWYG html editor
+#Yet another WYSIWYG html editor
 
-Have you ever used the gmail WYSIWYG html editor Feel like it Wanna have one in your website Here is your choice
+Have you ever used the gmail WYSIWYG html editor?
+Feel like it?
+Wanna have one in your website?
 
-Pintu editor is just what you need A html editor totally of Google gmail kind
+Pintu editor is just your choice!

@@ -19,7 +19,7 @@ var PE = pintuEditor = {
 		this.doc.contentEditable = "true";
 		this.doc.open();
 		this.doc.write('<html><head></head>');
-		this.doc.write('<body class="pecontent">GoodNessEditor</body></html>');
+		this.doc.write('<body class="pecontent">Pintu Editor</body></html>');
 		this.doc.close();
 		this.ifr = ifr;
 		return this;

@@ -11,7 +11,8 @@ var PE = pintuEditor = {
 		var dest = $('#'+tag);
 		this.dest = dest;
 		var ifr = document.createElement('iframe');
-			ifr.id = 'peifr';
+			ifr.name = ifr.id = 'peifr';
+
 			$(ifr).appendTo(dest);
 		
 		this.doc = ifr.contentDocument || ifr.contentWindow.document;
@@ -45,6 +46,38 @@ var PE = pintuEditor = {
 			this.css(a, oJson.css[a]);
 			$(this.ifr).css(a, oJson.css[a]);
 		}
+	},
+
+	save: function(file, name, btn)
+	{
+		var form = "<form name='pintuForm' action='"+file+"' method='post'>";
+			form += "<input type='hidden' name='"+name+"' id='"+name+"' />";
+			form += "<button type='submit' id='pintuSubmit' class='button'>"+btn+"</button>";
+			form += "</form>";
+		this.form = form;
+		$(this.dest).prepend(form);
+		var _that = this;
+		
+		var form = document.forms['pintuForm'];
+		form.onsubmit = function(event){
+				// prevent form submition before set input value
+				if(event.preventDefault)
+				{
+					event.preventDefault();
+				}
+				else
+				{
+					event.returnValue = false;
+				}
+				var html = $('#peifr').contents().find('body').html();
+				//var _html = document.frames['peifr'].document.body.innerHTML;
+				$('input#'+name).val(encodeURIComponent(html));
+				console.info(html);
+				//console.info(_html);
+				var o = event.target || event.srcElement;
+				o.submit();
+			};
+
 	},
 
 	css: function(attr, style)
@@ -144,11 +177,14 @@ var PE = pintuEditor = {
 			}
 			else if( soleArgCommands.indexOf(fn)+1 )
 			{
-				//console.info(fn);
+
 				var tag = e.target.id || e.target.parentNode.id || e.srcElement.id || e.srcElement.parentNode.id;
 				var o = document.getElementById(tag);
 
 				var cls = o.className;
+				//all sole arg command set to be unselected
+				$('.petoolbar').not($(o).find('div:first')).removeClass('toolItemSelected');
+
 				var l = o.offsetLeft;
 				var t = o.offsetTop + o.offsetHeight - 2;
 				
@@ -159,10 +195,12 @@ var PE = pintuEditor = {
 						break;
 					case 'forecolor':
 						_that.mark = 'fore';
+						//$('.petbHIGHLIGHT').removeClass('toolItemSelected');
 						_that.pop_div(t, l, 'colorPlate');
 						break;
 					case 'hilitecolor':
 						_that.mark = 'hilite';
+						//$('.petbTEXTCOLOR').removeClass('toolItemSelected');
 						_that.pop_div(t, l, 'colorPlate');
 						break;
 					case 'fontsize':
@@ -242,8 +280,10 @@ var PE = pintuEditor = {
 			});
 		
 
-		$('.closeX').bind('click', function() { $('#link').toggle(); $('.petbLINK').removeClass('toolItemSelected');});
-		$('#linkCancel').bind('click', function() { $('#link').toggle(); $('.petbLINK').removeClass('toolItemSelected');});
+		$('.closeX').bind('click', function() { $('#link').hide();
+			$('.petbLINK').removeClass('toolItemSelected');});
+		$('#linkCancel').bind('click', function() { $('#link').hide();
+			$('.petbLINK').removeClass('toolItemSelected');});
 		
 		$('#linkDestUrl').bind('input', function() {
 					$('#linkDone').attr('disabled', false);
@@ -338,12 +378,13 @@ var PE = pintuEditor = {
 		$('.imgtype').each(function(){ 
 				$(this).bind('click', function() {
 					$('.imgInput').toggle(); 
-					console.info(this);
 				});
 			});
 		
-		$('.closeX').bind('click', function() { $('#img').toggle(); $('.petbPICTURE').removeClass('toolItemSelected');});
-		$('#imgCancel').bind('click', function() { $('#img').toggle(); $('.petbPICTURE').removeClass('toolItemSelected');});
+		$('.closeX').bind('click', function() { $('#img').hide();
+			$('.petbPICTURE').removeClass('toolItemSelected');});
+		$('#imgCancel').bind('click', function() { $('#img').hide();
+			$('.petbPICTURE').removeClass('toolItemSelected');});
 
 		//action when img is ready
 		function imgReadyAction()
@@ -379,12 +420,9 @@ var PE = pintuEditor = {
 			}
 		}
 
-		$('#urlImg').bind('input', function() {
-			
+		$('#urlImg').bind('input', function() {			
 				$('#imgDone').attr('disabled', true);
-				imgReadyAction();
-				console.info('paste');
-				
+				imgReadyAction();				
 			});
 
 	},
@@ -572,7 +610,8 @@ var PE = pintuEditor = {
 
 //config the pe editor
 PE.init('pintuEditor').config({size: {width:600, height: 300},
-								css: {border: '1px solid #4D90FE'}
+								css: {border: '1px solid #4D90FE',
+									  'box-shadow': '2px -1px 4px rgba(0, 0, 0, 0.2)'}
 							 });
 
 PE.toolbar({BOLD:		{title: 'Bold',				command: 'bold'},
@@ -630,7 +669,8 @@ PE.font({'Sans Serif':		'arial,helvetica,sans-serif',
 PE.image(['jpg', 'jpeg', 'png', 'bmp']);
 
 PE.link(true);
-
+// form input element name you want to post to server when click button 'Submit'
+PE.save('server.php', 'pintuEditor', 'Submit');
 //body contents $('#peifr').contents().find('body').html();
 // Off cause the html tags ('<*>') can be encoded before save it to database;
 

@@ -72,8 +72,7 @@ var PE = pintuEditor = {
 				var html = $('#peifr').contents().find('body').html();
 				//var _html = document.frames['peifr'].document.body.innerHTML;
 				$('input#'+name).val(encodeURIComponent(html));
-				console.info(html);
-				//console.info(_html);
+			
 				var o = event.target || event.srcElement;
 				o.submit();
 			};

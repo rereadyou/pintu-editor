@@ -5,8 +5,7 @@
  */
 var PE = pintuEditor = {
 
-	init: function(tag)
-	{
+	init: function(tag) {
 		this.tag = tag;
 		var dest = $('#'+tag);
 		this.dest = dest;
@@ -26,8 +25,7 @@ var PE = pintuEditor = {
 		return this;
 	},
 
-	resize: function(width, height)
-	{
+	resize: function(width, height) {
 		this.width = width;
 		this.height = height;
 		this.ifr.setAttribute('width', width);
@@ -36,20 +34,17 @@ var PE = pintuEditor = {
 		return this;
 	},
 
-	config: function(oJson)
-	{
+	config: function(oJson) {
 		this.config = oJson;
 		this.resize(oJson.size.width, oJson.size.height);
 		
-		for(var a in oJson.css)
-		{
+		for(var a in oJson.css) {
 			this.css(a, oJson.css[a]);
 			$(this.ifr).css(a, oJson.css[a]);
 		}
 	},
 
-	save: function(file, name, btn)
-	{
+	save: function(file, name, btn) {
 		var form = "<form name='pintuForm' action='"+file+"' method='post'>";
 			form += "<input type='hidden' name='"+name+"' id='"+name+"' />";
 			form += "<button type='submit' id='pintuSubmit' class='button'>"+btn+"</button>";
@@ -59,28 +54,24 @@ var PE = pintuEditor = {
 		var _that = this;
 		
 		var form = document.forms['pintuForm'];
-		form.onsubmit = function(event){
-				// prevent form submition before set input value
-				if(event.preventDefault)
-				{
-					event.preventDefault();
-				}
-				else
-				{
-					event.returnValue = false;
-				}
-				var html = $('#peifr').contents().find('body').html();
-				//var _html = document.frames['peifr'].document.body.innerHTML;
-				$('input#'+name).val(encodeURIComponent(html));
-			
-				var o = event.target || event.srcElement;
-				o.submit();
-			};
+		form.onsubmit = function(event) {
+			// prevent form submition before set input value
+			if(event.preventDefault) {
+				event.preventDefault();
+			} else {
+				event.returnValue = false;
+			}
+			var html = $('#peifr').contents().find('body').html();
+			//var _html = document.frames['peifr'].document.body.innerHTML;
+			$('input#'+name).val(encodeURIComponent(html));
+		console.log(html);
+			var o = event.target || event.srcElement;
+			o.submit();
+		};
 
 	},
 
-	css: function(attr, style)
-	{
+	css: function(attr, style) {
 		this.ifr.style.attr = style;
 	},
 
@@ -99,11 +90,9 @@ var PE = pintuEditor = {
 	                           'justifyleft', 'justifycenter', 'justifyright', 
 	                           'removeformat'],
 	                           
-	toolbar: function(json)
-	{
+	toolbar: function(json) {
 		var _that = this;
-		if(!this.pebar)
-		{
+		if(!this.pebar) {
 			var pebar = document.createElement('div');
 			pebar.className = 'pebar';
 			pebar.id = 'pebar';
@@ -111,21 +100,18 @@ var PE = pintuEditor = {
 			$(this.dest).prepend(pebar);
 			this.pebar = pebar;
 		}
-		for(item in json)
-		{
+		for(item in json) {
 			var tag = "petb"+item;
 			var title = json[item].title;
 			var blocks = '<div class="toolItem" id="'+tag+'" title="'+title+'">';
 				blocks += '<div class="petoolbar '+tag+'" title="'+title+'"';
 
-			if(json[item].command)
-			{
+			if(json[item].command) {
 				blocks += ' command='+json[item].command;
 				//console.log('Load toolbar item: ', json[item].command, ' --done!');
 			}
 			blocks += '></div>';
-			if(json[item].submenu)
-			{
+			if(json[item].submenu) {
 				blocks += '<div class="littleGrayDownArrow"></div>';
 			}
 			blocks += '</div>';
@@ -147,13 +133,11 @@ var PE = pintuEditor = {
 		this.pebar.onclick = function(e) { 
 			//$('.popup_toolbar_div').hide();
 			o = e.target || e.srcElement;
-			if(o.className == 'littleGrayDownArrow')
-			{
+			if(o.className == 'littleGrayDownArrow') {
 				o = $(o).prev();
 			}
 			
-			if(!$(o).attr('command'))
-			{
+			if(!$(o).attr('command')) {
 				return ;
 			}
 
@@ -165,18 +149,13 @@ var PE = pintuEditor = {
 			$(o).toggleClass('toolItemSelected');
 //			console.info(o);
 
-			if( noArgCommands.indexOf(fn)+1 )
-			{
+			if( noArgCommands.indexOf(fn)+1 ) {
 				_that.doc.execCommand(fn, false, null);
 				
-				if(modelessCommands.indexOf(fn)+1)
-				{
+				if(modelessCommands.indexOf(fn)+1) {
 					$(o).toggleClass('toolItemSelected');
 				}
-			}
-			else if( soleArgCommands.indexOf(fn)+1 )
-			{
-
+			} else if( soleArgCommands.indexOf(fn)+1 ) {
 				var tag = e.target.id || e.target.parentNode.id || e.srcElement.id || e.srcElement.parentNode.id;
 				var o = document.getElementById(tag);
 
@@ -187,8 +166,7 @@ var PE = pintuEditor = {
 				var l = o.offsetLeft;
 				var t = o.offsetTop + o.offsetHeight - 2;
 				
-				switch(fn)
-				{
+				switch(fn) {
 					case 'fontname':
 						_that.pop_div(t, l, 'fontFamily');
 						break;
@@ -218,16 +196,14 @@ var PE = pintuEditor = {
 					default:
 						console.info('Have no idea what div should pop!');
 						break;
-				}
-				
+				}				
 			}
 			
 			//_that.ifr.contentWindow.focus();
 		};
 	},
 	
-	link: function(bEnable)
-	{
+	link: function(bEnable) {
 		var linkDiv = "<div id='linkDiv' command='createLink' style='padding: 15px 50px; font-family: arial, sans serif;'>";
 
 			linkDiv += "<div id='popupLinkTitle' style='margin-bottom: 40px;'>";
@@ -289,15 +265,13 @@ var PE = pintuEditor = {
 					//console.info('paste');
 				});
 		
-		$(this.link).find('#linkDone').bind('click', function(){ 
-				
+		$(this.link).find('#linkDone').bind('click', function() {
 				var url = $('#linkDestUrl').val();
 				var email = $('#linkDestEmail').val();
 				
 				//set the input txt as link
 				var txt = $('#linkText').val();
-				if(txt)
-				{
+				if(txt) {
 					var newLink = '<a href="'+url+'" target="_blank" >'+txt+'</a>';
 					//insertHtml is not supported by IE, ie need pasteHTML on textrange
 					_that.doc.execCommand('insertHTML', false, newLink);
@@ -310,13 +284,10 @@ var PE = pintuEditor = {
 				var urlRegExp = /^http:\/\/\w[\w\/#\.\?&]*\.\w{2,}$/i;
 				//if(urlRegExp.test(url))
 				console.info(_that.doc.getSelection());
-				if(_that.doc.getSelection())
-				{
+				if(_that.doc.getSelection()) {
 					_that.doc.execCommand('createLink', false, url);
 					$('#link').hide();
-				}
-				else 
-				{
+				} else {
 					$('#unvalidUrlHint').remove();
 					var hint = "<div id='unvalidUrlHint' style='color: #FF0000; font-size: 13px;' >";
 						hint += "Unvalid URL or display text, Please input a valid URL and display text.";
@@ -326,13 +297,9 @@ var PE = pintuEditor = {
 				// remove css of selected
 				$('.petbLINK').removeClass('toolItemSelected');
 			});
-		
-
-
 	},
 
-	image: function(imgtype)
-	{
+	image: function(imgtype) {
 		var radioSwitchDiv = "<div id='imgRadio' style='float: left; margin: 20px 0px; width: 150px; font-size: 13px;'>";
 			radioSwitchDiv += "<input type='radio' id='pcTypeImg' class = 'imgtype' name='imgSrc' checked/>My Computer" + "</br></br>";
 			radioSwitchDiv += "<input type='radio' id='urlTypeImg' class = 'imgtype' name='imgSrc' />Web Address(URL)";
@@ -366,8 +333,7 @@ var PE = pintuEditor = {
 			linkDiv += "<div style='clear: both;'></div></br></br>";
 			linkDiv += "<input id='imgDone' class='button' type='button' style='margin: 0px 0px 0px 5px;' value='OK' disabled />";
 			linkDiv += "<input id='imgCancel' class='button' type='button' style='margin: 0px 0px 0px 5px;' value='Cancel' />";
-			linkDiv += "</form></div>";
-		
+			linkDiv += "</form></div>";		
 		
 		this.create_div(700, 260, 'img');
 		$('#img').append(linkDiv);	
@@ -386,27 +352,22 @@ var PE = pintuEditor = {
 			$('.petbPICTURE').removeClass('toolItemSelected');});
 
 		//action when img is ready
-		function imgReadyAction()
-		{
+		function imgReadyAction() {
 			var imgurl = $('#urlImg').val();
 			var extRegExp = /^.+\.(\w{3,})$/i;
 				ext = extRegExp.exec(imgurl);
 
 			//check if an ext found
-			if(ext && ext[1])
-			{
+			if(ext && ext[1]) {
 				ext = ext[1].toLowerCase();
-			}
-			else
-			{
+			} else {
 				return;
 			}
 
 			var exts = (typeof imgtype == 'string') ? imgtype : imgtype.join(',');
 				exts = exts.toLowerCase();
 			
-			if(exts.search(ext) + 1)
-			{			
+			if(exts.search(ext) + 1) {
 				$('#imgDone').removeAttr('disabled').unbind().bind('click', function() { 					
 					_that.doc.execCommand('insertimage', false,  imgurl);
 					
@@ -426,8 +387,7 @@ var PE = pintuEditor = {
 
 	},
 	
-	create_div: function(width, height, id)
-	{
+	create_div: function(width, height, id) {
 		var div = '<div class="popup_toolbar_div popDiv"';
 			div += id ? ' id="'+id : '';
 		w = (typeof width == "number") ? width+"px" : width;
@@ -447,8 +407,7 @@ var PE = pintuEditor = {
 		//console.info('Loading sub menu iteam :'+id+' ...done!');
 	},
 	
-	pop_div: function(top, left, id)
-	{
+	pop_div: function(top, left, id) {
 		var regExp = /^#(\w+)$/;
 			t = (typeof top == "number") ? top+"px" : top;
 			l = (typeof left == "number") ? left+"px" : left;
@@ -457,16 +416,13 @@ var PE = pintuEditor = {
 		$(id).css({"top":t, "left":l}).toggle();
 	},
 	
-	color_plate: function(oJson)
-	{
+	color_plate: function(oJson) {
 		var colorPlate = '<div id="textColorPlate" class="colorPlate">';
 			//colorPlate += '<div id="colorSample" style="border: 1px solid #FF0000; width: 40px; height: 40px; "></div>';
 			colorPlate += '<table>';
-		for(row in oJson)
-		{
+		for(row in oJson) {
 			colorPlate += '<tr>';
-			for(span in oJson[row])
-			{
+			for(span in oJson[row]) {
 				colorPlate += '<td><div class="colorBrick" command="" title="'+oJson[row][span];
 				colorPlate += '"style="background-color: '+oJson[row][span]+';"></div></td>';
 			}
@@ -479,28 +435,24 @@ var PE = pintuEditor = {
 
 		var _that = this;
 
-		this.colorPlate.onmouseover = function(e){
+		this.colorPlate.onmouseover = function(e) {
 			$('.colorBrick').css({'border':'','width':'14px','height':'12px','margin':'0px -2px -2px 0px'});
 			o = e.target || e.srcElement;
-			if(o.className == "colorBrick")
-			{
+			if(o.className == "colorBrick") {
 				$(o).css({'width':'16px','height':'14px', 'margin':'-2px -4px -4px -2px'});
 				$(o).css('border', '1px solid #FFFF00');
 			}
 		};
 
-		this.colorPlate.onmousedown = function(e){
+		this.colorPlate.onmousedown = function(e) {
 			o = e.target || e.srcElement;
 			//$('#fontSize').hide();
 			_that.doc.execCommand(_that.mark+'Color', false, o.title);
 			
 			//hide selected status of toobaritem
-			if(_that.mark == 'fore')
-			{
+			if(_that.mark == 'fore') {
 				$('.petbTEXTCOLOR').removeClass('toolItemSelected');
-			}
-			else if(_that.mark == 'hilite')
-			{
+			} else if(_that.mark == 'hilite') {
 				$('.petbHIGHLIGHT').removeClass('toolItemSelected');
 			}
 
@@ -512,8 +464,7 @@ var PE = pintuEditor = {
 	{
 		var size = '<div id="fontSize" style="color: #333333;">';
 		
-		for(item in oJson)
-		{
+		for(item in oJson) {
 			var v = oJson[item];
 				v = (typeof v === 'number') ? v+'px' : v;
 
@@ -529,18 +480,18 @@ var PE = pintuEditor = {
 
 		var _that = this;
 		
-		this.fontSize.onmouseover = function(e){
+		this.fontSize.onmouseover = function(e) {
 			$('.fontSize').attr('class', 'fontSize');
 			o = e.target || e.srcElement;
 			$(o).addClass('overFont');
 		};
 		
-		this.fontSize.onmouseout = function(e){
+		this.fontSize.onmouseout = function(e) {
 			o = e.target || e.srcElement;
 			$(o).removeClass('overFont');
 		};
 
-		this.fontSize.onclick =  function(e){
+		this.fontSize.onclick =  function(e) {
 			o = e.target || e.srcElement;
 			//hide this popup div
 			$('#fontSize').hide();			
@@ -554,14 +505,11 @@ var PE = pintuEditor = {
 			_that.doc.execCommand('FontSize', false, $(o).attr('command'));
 			$('.petbSIZE').removeClass('toolItemSelected');
 		};
-	
 	}, 
 	
-	font: function(fs)
-	{
+	font: function(fs) {
 		var fb = '<div id="fontFamily" style="color: #333333;">';
-		for(var f in fs)
-		{
+		for(var f in fs) {
 			fword = f.replace(/\s/g, '');
 			fb += '<div id="font'+fword+'" class="fontFamily" title="'+f+'" command="'+fs[f]+'" ';
 			fb += 'style="font-family: '+fs[f]+'; font-size: 13px; padding: 3px 0px 3px 30px;" >';
